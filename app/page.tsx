@@ -1,69 +1,134 @@
-import Image from "next/image";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { TopBar } from '@/components/layout/TopBar';
+import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
+import { HeroSection } from '@/components/home/HeroSection';
+import { PromoCarousel } from '@/components/home/PromoCarousel';
+import { RegisterKosBanner } from '@/components/home/RegisterKosBanner';
+import { InfoCard } from '@/components/home/InfoCard';
+import { ProductSection } from '@/components/home/ProductSection';
+import { LocationGrid } from '@/components/home/LocationGrid';
+import { SeoDescription } from '@/components/home/SeoDescription';
+import {
+  promoNgebutKos,
+  rekomendasiKosJakarta,
+  kosLagiPromo,
+  popularCities,
+  campusLocations,
+} from '@/data/mock-data';
+
+export const metadata = {
+  title: 'Mamikos — Cari Kos Mudah dan Terpercaya',
+  description:
+    'Temukan kos putra, putri, dan campur di seluruh Indonesia. Cari, survei, dan sewa kos impian kamu di Mamikos.',
+};
 
 export default function Home() {
+  // InfoCard #2 logo area
+  const singgahSiniLogo = (
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+      <Typography variant="body2" sx={{ fontWeight: 700, color: '#7B3FA6', fontSize: 14 }}>
+        𝕊 singgah sini
+      </Typography>
+      <Typography variant="body2" sx={{ fontWeight: 800, color: '#7B3FA6', fontSize: 16 }}>
+        apik
+      </Typography>
+    </Box>
+  );
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      {/* Header Container: membungkus TopBar dan Navbar agar lengket bersamaan */}
+      <Box
+        component="header"
+        sx={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 1100,
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        {/* 1. TopBar */}
+        <TopBar />
+
+        {/* 2. Navbar */}
+        <Navbar />
+      </Box>
+
+      <Box component="main" sx={{ flex: 1 }}>
+        {/* 3. HeroSection */}
+        <HeroSection />
+
+        {/* 4. PromoCarousel */}
+        <PromoCarousel />
+
+        {/* 5. RegisterKosBanner */}
+        <RegisterKosBanner />
+
+        {/* 6. InfoCard — Survei Kos */}
+        <InfoCard
+          variant="survey"
+          title="Survei Kos Idaman Kamu Sekarang!"
+          description="Untungnya ada fitur Survei Kos di Mamikos. Cari, pilih, survei, hingga sewa kos idaman dijamin aman dan GRATIS."
+          linkText="Baca selengkapnya"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+
+        {/* 7. InfoCard — Kos Dikelola Mamikos */}
+        <InfoCard
+          variant="managed"
+          title="Kos Dikelola Mamikos, Terjamin Nyaman"
+          description="Disurvey langsung oleh Mamikos. Lokasi terverifikasi, bangunan kos lolos seleksi."
+        />
+
+        {/* 8. ProductSection — Promo Ngebut (with countdown) */}
+        <ProductSection
+          title="Promo Ngebut"
+          highlightTitle="Semua Kota"
+          data={promoNgebutKos}
+          showCityDropdown
+          showCountdown
+          countdownDays={14}
+          countdownTime="11 : 12 : 15"
+        />
+
+        {/* 9. ProductSection — Rekomendasi Jakarta */}
+        <ProductSection
+          title="Rekomendasi kos di"
+          highlightTitle="Jakarta"
+          data={rekomendasiKosJakarta}
+          showCityDropdown
+        />
+
+        {/* 10. ProductSection — Kos Lagi Promo */}
+        <ProductSection
+          title="Kos yang lagi promo di"
+          highlightTitle="Semua Kota"
+          data={kosLagiPromo}
+          showCityDropdown
+        />
+
+        {/* 11. LocationGrid — Area Terpopuler */}
+        <LocationGrid
+          variant="city"
+          title="Area Kos Terpopuler"
+          data={popularCities}
+        />
+
+        {/* 12. LocationGrid — Kos Sekitar Kampus */}
+        <LocationGrid
+          variant="campus"
+          title="Kos Sekitar Kampus"
+          data={campusLocations}
+        />
+
+        {/* 13. SeoDescription */}
+        <SeoDescription />
+      </Box>
+
+      {/* 14. Footer */}
+      <Footer />
+    </Box>
   );
 }

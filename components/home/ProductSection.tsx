@@ -16,8 +16,8 @@ import { Kos } from '@/types';
 import { cityOptions } from '@/data/mock-data';
 
 const CARD_WIDTH = 266;
-const CARD_GAP = 16; // gap antar card (px)
-const SCROLL_AMOUNT = CARD_WIDTH + CARD_GAP; // scroll 1 card per klik
+const CARD_GAP = 16;
+const SCROLL_AMOUNT = CARD_WIDTH + CARD_GAP; 
 
 interface ProductSectionProps {
   title: string;
@@ -60,7 +60,6 @@ export function ProductSection({
             mb: 2,
           }}
         >
-          {/* Title + dropdown langsung di samping */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, flexWrap: 'wrap' }}>
             <Typography sx={{ fontWeight: 700, fontSize: '20px', lineHeight: 1.3 }}>
               {title}
@@ -88,13 +87,12 @@ export function ProductSection({
             )}
           </Box>
 
-          {/* Right: countdown + Lihat semua + divider + arrows */}
           <Box 
             sx={{ 
               display: 'flex', 
               alignItems: 'center', 
               gap: 1.5, 
-              flexWrap: 'wrap', // Allow wrapping on small screens
+              flexWrap: 'wrap', 
               width: '100%',
               justifyContent: { xs: 'flex-start', sm: 'flex-end' } 
             }}
@@ -113,7 +111,6 @@ export function ProductSection({
                   Akan Berakhir<br />dalam waktu:
                 </Typography>
 
-                {/* Pill: X Hari */}
                 <Box
                   sx={{
                     bgcolor: 'grey.100',
@@ -129,7 +126,7 @@ export function ProductSection({
                   </Typography>
                 </Box>
 
-                {/* HH : MM : SS — masing-masing dalam pill terpisah */}
+                {/* HH : MM : SS */}
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   {[
                     String(countdown.hours).padStart(2, '0'),
@@ -160,7 +157,6 @@ export function ProductSection({
               </Box>
             )}
 
-            {/* Lihat semua — outlined */}
             <Button
               variant="outlined"
               size="small"
@@ -179,7 +175,6 @@ export function ProductSection({
               Lihat semua
             </Button>
 
-            {/* Divider vertikal */}
             <Box
               component="span"
               sx={{
@@ -190,7 +185,6 @@ export function ProductSection({
               }}
             />
 
-            {/* Nav arrows */}
             <Box sx={{ display: 'flex', gap: 0.5 }}>
               <IconButton
                 size="small"
@@ -220,10 +214,8 @@ export function ProductSection({
             overflowX: 'auto',
             scrollSnapType: 'x mandatory',
             pb: 1,
-            // Buat scroll container tembus ke ujung layar di mobile
             mx: { xs: -2, sm: -3, lg: 0 },
             px: { xs: 2, sm: 3, lg: 0 },
-            /* Hide scrollbar tapi tetap bisa scroll */
             '&::-webkit-scrollbar': { display: 'none' },
             msOverflowStyle: 'none',
             scrollbarWidth: 'none',
@@ -235,7 +227,6 @@ export function ProductSection({
               sx={{ 
                 scrollSnapAlign: 'start', 
                 flexShrink: 0,
-                // Beri margin kanan tambahan di elemen terakhir agar scroll tidak mentok
                 mr: index === data.length - 1 ? { xs: 2, sm: 3, lg: 0 } : 0 
               }}
             >

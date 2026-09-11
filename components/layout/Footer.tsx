@@ -19,7 +19,6 @@ export function Footer() {
   return (
     <Box component="footer" sx={{ bgcolor: '#FFFFFF', borderTop: '1px solid', borderColor: 'grey.200' }}>
       <Container maxWidth="lg" sx={{ py: 5 }}>
-        {/* Outer: col1 berjauhan dari col2-4 */}
         <Box
           sx={{
             display: 'grid',
@@ -28,7 +27,6 @@ export function Footer() {
             marginBottom: 6
           }}
         >
-          {/* Col 1: Logo + tagline + download */}
           <Stack spacing={2}>
             <Box sx={{ height: 41, position: 'relative' }}>
               <Image
@@ -43,9 +41,6 @@ export function Footer() {
               Dapatkan "info kost murah" hanya di MamiKos App. Mau "Sewa Kost Murah"?
             </Typography>
             <Stack spacing={0.75}>
-              {/* <Typography variant="caption" sx={{ fontWeight: 600 }}>
-                Download App
-              </Typography> */}
               <Stack direction="row" spacing={1}>
                 <Box sx={{ position: 'relative', height: 40, cursor: 'pointer' }}>
                   <Image
@@ -69,7 +64,6 @@ export function Footer() {
             </Stack>
           </Stack>
 
-          {/* Col 2-3-4: sub-grid dengan gap lebih kecil */}
           <Box
             sx={{
               display: 'grid',

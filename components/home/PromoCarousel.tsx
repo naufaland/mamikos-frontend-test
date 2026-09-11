@@ -21,7 +21,6 @@ export function PromoCarousel() {
       align: 'center',
       dragFree: false,
       duration: 30,
-      // Wajib false agar infinite loop tidak terpotong di tepi
       containScroll: false,
     },
     [Autoplay({ delay: 4000, stopOnInteraction: false })]
@@ -49,17 +48,10 @@ export function PromoCarousel() {
   return (
     <Box sx={{ py: 3, bgcolor: 'white' }}>
       <Container maxWidth="lg">
-        {/*
-          Embla perlu:
-          1. Viewport box dengan overflow:hidden
-          2. Container flex TANPA gap — gunakan paddingLeft di setiap slide sebagai gantinya
-          3. Ukuran slide konsisten (tidak berubah saat aktif) agar animasi tidak patah
-        */}
         <Box
           ref={emblaRef}
           sx={{
             overflow: 'hidden',
-            // Sedikit padding agar slide di sisi edge terlihat saat loop
             mx: { xs: -1, md: -2 },
             px: { xs: 1, md: 2 },
           }}
@@ -67,7 +59,6 @@ export function PromoCarousel() {
           <Box
             sx={{
               display: 'flex',
-              // Jangan gunakan gap — gunakan paddingLeft di setiap slide
               touchAction: 'pan-y',
             }}
           >
@@ -78,8 +69,6 @@ export function PromoCarousel() {
                 <Box
                   key={banner.id}
                   sx={{
-                    // Lebar slide = ukuran AKTIF (590px) — tidak berubah saat slide aktif/non-aktif
-                    // Efek ukuran berbeda dikontrol via scale() di inner box
                     flex: '0 0 590px',
                     width: 590,
                     paddingLeft: '16px',
@@ -90,8 +79,6 @@ export function PromoCarousel() {
                       position: 'relative',
                       borderRadius: 2,
                       overflow: 'hidden',
-                      // Aktif: 590 × 250px
-                      // Non-aktif: scale(531/590 ≈ 0.9) → ~531 × 225px secara visual
                       width: '100%',
                       height: 250,
                       transform: isActive ? 'scale(1)' : 'scale(0.9)',

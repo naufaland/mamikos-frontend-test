@@ -44,9 +44,6 @@ export const promoBanners: PromoBanner[] = [
 // ============================================
 // PROMO NGEBUT (dengan diskon nominal + countdown)
 // ============================================
-// Field harga/rating/fasilitas pada item ke-3 s.d. ke-7 adalah PLACEHOLDER
-// (nama, lokasi, kategori sudah sesuai data asli hasil parsing URL produk;
-// harga & fasilitas belum ada sumbernya dari kamu — sesuaikan manual jika perlu).
 export const promoNgebutKos: Kos[] = [
   {
     id: "kos-1",
@@ -158,8 +155,6 @@ export const promoNgebutKos: Kos[] = [
 // ============================================
 // REKOMENDASI KOS DI JAKARTA
 // ============================================
-// Field harga/rating/fasilitas adalah PLACEHOLDER (nama, lokasi, kategori
-// sudah sesuai hasil parsing URL produk asli — sesuaikan manual jika perlu).
 export const rekomendasiKosJakarta: Kos[] = [
   {
     id: "kos-8",
@@ -257,8 +252,6 @@ export const rekomendasiKosJakarta: Kos[] = [
 // ============================================
 // KOS YANG LAGI PROMO (promo label, bukan nominal)
 // ============================================
-// Field harga/promoLabel adalah PLACEHOLDER (nama, lokasi, kategori sudah
-// sesuai hasil parsing URL produk asli — sesuaikan manual jika perlu).
 export const kosLagiPromo: Kos[] = [
   {
     id: "kos-15",
@@ -404,12 +397,6 @@ export const popularCities: CityLocation[] = [
 // ============================================
 // KOS SEKITAR KAMPUS (logo lokal di public/logo/)
 // ============================================
-// Logo disimpan lokal (bukan hotlink ke mamikos.com) karena:
-// 1. Logo kampus adalah milik institusi masing-masing, bukan aset Mamikos
-// 2. Menghindari risiko hotlink protection/CORS dari domain eksternal
-// 3. Jumlahnya sedikit (7 file) & statis, cocok untuk asset lokal
-// Silakan download logo resmi tiap kampus dan taruh di public/logo/ dengan
-// nama file sesuai path di bawah.
 export const campusLocations: CampusLocation[] = [
   {
     id: "campus-1",

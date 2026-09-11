@@ -26,7 +26,6 @@ export function LocationCard({ name, image }: LocationCardProps) {
         style={{ objectFit: 'cover', transition: 'transform 0.3s ease' }}
         sizes="(max-width: 600px) 50vw, 25vw"
       />
-      {/* Gradient overlay — full card, darker at bottom */}
       <Box
         sx={{
           position: 'absolute',
@@ -34,7 +33,6 @@ export function LocationCard({ name, image }: LocationCardProps) {
           background: 'rgba(0,0,0,0.25)',
         }}
       />
-      {/* Name — benar-benar di center bawah card */}
       <Typography
         sx={{
           fontWeight: 600,

@@ -11,7 +11,6 @@ import { Kos } from '@/types';
 
 interface ProductCardProps {
   kos: Kos;
-  /** 'ngebut' | 'promo' | 'rekomendasi' — menentukan gambar dummy yang dipakai */
   sectionType?: 'ngebut' | 'promo' | 'rekomendasi';
 }
 
@@ -19,11 +18,7 @@ function formatRupiah(amount: number): string {
   return `Rp${amount.toLocaleString('id-ID')}`;
 }
 
-/** Pilih foto dummy berdasarkan section & apakah ada diskon/promo */
 function getImageSrc(kos: Kos, sectionType: ProductCardProps['sectionType']): string {
-  // Gambar 1 (kWZTYlOQ): card dengan diskon nominal → Promo Ngebut & Rekomendasi yang ada diskon
-  // Gambar 2 (ktwHC7Pq): Kos yang Lagi Promo (promoLabel)
-  // Gambar 3 (ygpUGYZ7): Rekomendasi Kos yang tidak ada promo sama sekali
   if (sectionType === 'promo') {
     return '/roomKos/ktwHC7Pq-540x720.jpg';
   }
@@ -60,7 +55,6 @@ export function ProductCard({ kos, sectionType = 'rekomendasi' }: ProductCardPro
         flexShrink: 0,
       }}
     >
-      {/* Image — full width, edge-to-edge, radius only on top corners */}
       <Box
         sx={{
           position: 'relative',
@@ -82,9 +76,7 @@ export function ProductCard({ kos, sectionType = 'rekomendasi' }: ProductCardPro
 
       {/* Card Body */}
       <Box sx={{ px: 1.5, pb: 1.5, pt: 1, flex: 1, display: 'flex', flexDirection: 'column', gap: 0.25 }}>
-        {/* Category + Rating + Sisa kamar — di bawah foto */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, flexWrap: 'wrap', mb: 0.5 }}>
-          {/* Chip kategori — outlined, border abu */}
           <Chip
             label={kos.category}
             size="small"
@@ -119,8 +111,6 @@ export function ProductCard({ kos, sectionType = 'rekomendasi' }: ProductCardPro
             </Typography>
           )}
         </Box>
-
-        {/* Name — regular weight */}
         <Typography
           sx={{
             fontSize: 13,
@@ -136,12 +126,10 @@ export function ProductCard({ kos, sectionType = 'rekomendasi' }: ProductCardPro
           {kos.name}
         </Typography>
 
-        {/* Location — bold, dark */}
         <Typography sx={{ fontSize: 13, color: 'text.primary', fontWeight: 700, lineHeight: 1.3 }}>
           {kos.location}
         </Typography>
 
-        {/* Facilities */}
         <Typography
           sx={{
             fontSize: 11,
@@ -158,7 +146,6 @@ export function ProductCard({ kos, sectionType = 'rekomendasi' }: ProductCardPro
 
         {/* Price Section */}
         <Box sx={{ mt: 'auto', pt: 1 }}>
-          {/* Variant 1: ada diskon nominal (Promo Ngebut) */}
           {kos.discountAmount && kos.originalPrice ? (
             <>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, flexWrap: 'wrap' }}>
@@ -178,7 +165,6 @@ export function ProductCard({ kos, sectionType = 'rekomendasi' }: ProductCardPro
               </Typography>
             </>
           ) : kos.promoLabel ? (
-            /* Variant 2: ada promoLabel (Kos Lagi Promo) */
             <>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                 <RedeemIcon sx={{ fontSize: 13, color: 'primary.main' }} />
@@ -194,7 +180,6 @@ export function ProductCard({ kos, sectionType = 'rekomendasi' }: ProductCardPro
               </Typography>
             </>
           ) : (
-            /* Variant 3: plain price (Rekomendasi tanpa promo) */
             <Typography sx={{ fontSize: 14, fontWeight: 700, color: '#222' }}>
               {formatRupiah(kos.finalPrice)}
               <Typography component="span" sx={{ fontSize: 12, color: '#555', fontWeight: 400 }}>

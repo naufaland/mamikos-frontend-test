@@ -23,11 +23,9 @@ export function HeroSection() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          // Menjaga agar elemen absolut tidak keluar dari batas container
           minHeight: { xs: 200, md: 250 },
         }}
       >
-        {/* Background city illustration dipindah ke dalam Container agar selaras dengan margin 1200px */}
         <Box
           sx={{
             position: 'absolute',
@@ -37,11 +35,10 @@ export function HeroSection() {
             height: '100%',
             backgroundImage: 'url("/pics/bg_hero_section_top.png")',
             backgroundRepeat: 'no-repeat',
-            // Gunakan backgroundSize auto 100% agar tingginya pas full memenuhi kontainer
             backgroundSize: { xs: 'contain', md: 'auto 100%' },
             backgroundPosition: 'right bottom',
-            zIndex: -1, // Supaya selalu di belakang teks
-            pointerEvents: 'none', // Supaya tidak menghalangi klik
+            zIndex: -1,
+            pointerEvents: 'none',
           }}
         />
 

@@ -16,13 +16,11 @@ import Image from 'next/image';
 
 export function Navbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  // true = hero search sudah tidak terlihat → tampilkan SearchBar di navbar
   const [showSearchInNavbar, setShowSearchInNavbar] = useState(false);
 
   const handleMenuOpen = (e: React.MouseEvent<HTMLElement>) => setAnchorEl(e.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
 
-  // Common style untuk menu item agar ada garis bawah hijau saat di hover
   const navItemSx = {
     fontSize: 13,
     color: 'text.primary',
@@ -53,12 +51,10 @@ export function Navbar() {
 
   useEffect(() => {
     const heroSearchAnchor = document.getElementById('hero-search-anchor');
-    // Jika anchor tidak ada di halaman ini, tidak perlu observer
     if (!heroSearchAnchor) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Tampilkan search di navbar saat hero search TIDAK terlihat (sudah discroll)
         setShowSearchInNavbar(!entry.isIntersecting);
       },
       { rootMargin: '-64px 0px 0px 0px', threshold: 0 }
@@ -72,7 +68,7 @@ export function Navbar() {
     <Box
       component="nav"
       sx={{
-        height: 64, // Tinggi navbar fix 64px
+        height: 64,
         display: 'flex',
         alignItems: 'center',
         bgcolor: 'white',
@@ -88,16 +84,13 @@ export function Navbar() {
           sx={{ height: '100%', alignItems: 'center', justifyContent: 'space-between' }}
           spacing={2}
         >
-          {/* Left area: Logo & SearchBar grouped together */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flex: 1 }}>
-            {/* Logo */}
             <Link href="/" style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
               <Box
                 sx={{
                   overflow: 'hidden',
-                  // 140px untuk full logo, 36px untuk ikon kepala saja
                   width: showSearchInNavbar ? 36 : 140,
-                  transition: 'none', // Menghilangkan animasi transisi agar instant
+                  transition: 'none', 
                   display: 'flex',
                   alignItems: 'center',
                   flexShrink: 0,
@@ -114,7 +107,6 @@ export function Navbar() {
               </Box>
             </Link>
 
-            {/* SearchBar — muncul saat hero search sudah tidak terlihat */}
             <Box
               sx={{
                 flex: 1,
@@ -139,12 +131,14 @@ export function Navbar() {
               anchorEl={anchorEl} 
               open={Boolean(anchorEl)} 
               onClose={handleMenuClose}
-              PaperProps={{
-                sx: { 
-                  mt: 1, 
-                  minWidth: 260, 
-                  borderRadius: 2, 
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.08)' 
+              slotProps={{
+                paper: {
+                  sx: { 
+                    mt: 1, 
+                    minWidth: 260, 
+                    borderRadius: 2, 
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.08)' 
+                  }
                 }
               }}
             >

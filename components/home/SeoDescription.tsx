@@ -94,7 +94,6 @@ export function SeoDescription() {
           dan booking kos.
         </Typography>
 
-        {/* Toggle header — satu accordion tunggal */}
         <Box
           onClick={() => setOpen((v) => !v)}
           sx={{
@@ -117,19 +116,16 @@ export function SeoDescription() {
           )}
         </Box>
 
-        {/* Feature list — muncul saat dibuka */}
         {open && (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
             {FEATURES.map((f) => (
               <Box key={f.label} sx={{ display: 'flex', gap: 2 }}>
-                {/* Label huruf */}
                 <Typography
                   sx={{ fontWeight: 600, fontSize: 14, minWidth: 20, color: 'text.primary', pt: 0.1 }}
                 >
                   {f.label}.
                 </Typography>
 
-                {/* Konten */}
                 <Box>
                   <Typography sx={{ fontWeight: 550, fontSize: 14, mb: 0.5 }}>
                     {f.title}

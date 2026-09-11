@@ -63,8 +63,8 @@ export function RegisterKosBanner() {
             <Image
               src="/pics/landing-owner-entry.webp"
               alt="Daftar Kos Mamikos"
-              width={350} // Beri width yang cukup besar
-              height={150} // Atau biarkan next/image menghitung proporsinya
+              width={350} 
+              height={150} 
               style={{ 
                 position: 'absolute',
                 right: 0,

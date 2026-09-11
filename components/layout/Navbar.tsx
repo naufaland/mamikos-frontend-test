@@ -131,7 +131,7 @@ export function Navbar() {
             <Button
               endIcon={<KeyboardArrowDownIcon />}
               onClick={handleMenuOpen}
-              sx={navItemSx}
+              sx={{ ...navItemSx, display: { xs: 'none', md: 'inline-flex' } }}
             >
               Cari Apa?
             </Button>
@@ -170,7 +170,7 @@ export function Navbar() {
               </MenuItem>
             </Menu>
 
-            <Button sx={navItemSx}>
+            <Button sx={{ ...navItemSx, display: { xs: 'none', md: 'inline-flex' } }}>
               Pusat Bantuan
             </Button>
             <Button

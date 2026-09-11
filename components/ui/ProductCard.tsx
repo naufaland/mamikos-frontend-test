@@ -60,14 +60,13 @@ export function ProductCard({ kos, sectionType = 'rekomendasi' }: ProductCardPro
         flexShrink: 0,
       }}
     >
-      {/* Image — 252x168, centred inside the 266px card with 7px side margin */}
-      <Box sx={{ px: '7px', pt: '7px' }}>
+      {/* Image — full width, edge-to-edge, radius only on top corners */}
       <Box
         sx={{
           position: 'relative',
-          width: 252,
+          width: '100%',
           height: PHOTO_HEIGHT,
-          borderRadius: BORDER_RADIUS,
+          borderRadius: `${BORDER_RADIUS} ${BORDER_RADIUS} 0 0`,
           overflow: 'hidden',
           flexShrink: 0,
         }}
@@ -79,7 +78,6 @@ export function ProductCard({ kos, sectionType = 'rekomendasi' }: ProductCardPro
           style={{ objectFit: 'cover' }}
           sizes="266px"
         />
-      </Box>
       </Box>
 
       {/* Card Body */}

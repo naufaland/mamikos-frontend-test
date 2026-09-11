@@ -20,8 +20,10 @@ export function RegisterKosBanner() {
             gap: 2,
             position: 'relative',
             overflow: 'hidden',
+            boxShadow: '0 2px 12px rgba(0,0,0,0.07)',
             '&::after': {
               content: '""',
+              display: { xs: 'none', md: 'block' },
               position: 'absolute',
               right: 120,
               top: 0,
@@ -57,19 +59,22 @@ export function RegisterKosBanner() {
           </Box>
 
           {/* Owner entry image */}
-          <Image
-            src="/pics/landing-owner-entry.webp"
-            alt="Daftar Kos Mamikos"
-            width={350} // Beri width yang cukup besar
-            height={150} // Atau biarkan next/image menghitung proporsinya
-            style={{ 
-              position: 'absolute',
-              right: 0,
-              height: '300px',
-              width: 'auto',
-              objectFit: 'cover',
-            }}
-          />
+          <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+            <Image
+              src="/pics/landing-owner-entry.webp"
+              alt="Daftar Kos Mamikos"
+              width={350} // Beri width yang cukup besar
+              height={150} // Atau biarkan next/image menghitung proporsinya
+              style={{ 
+                position: 'absolute',
+                right: 0,
+                top: 0,
+                height: '300px',
+                width: 'auto',
+                objectFit: 'cover',
+              }}
+            />
+          </Box>
         </Box>
       </Container>
     </Box>

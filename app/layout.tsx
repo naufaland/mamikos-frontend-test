@@ -15,6 +15,9 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Mamikos Clone",
   description: "Clone of Mamikos.com for technical test",
+  icons: {
+    icon: "/logo/mamikos-logo-head.png",
+  },
 };
 
 export default function RootLayout({

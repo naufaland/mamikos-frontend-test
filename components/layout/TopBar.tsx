@@ -8,7 +8,7 @@ import CampaignIcon from '@mui/icons-material/Campaign';
 
 export function TopBar() {
   return (
-    <Box sx={{ bgcolor: '#F5F5F5', borderBottom: '1px solid', borderColor: 'grey.200' }}>
+    <Box sx={{ display: { xs: 'none', md: 'block' }, bgcolor: '#F5F5F5', borderBottom: '1px solid', borderColor: 'grey.200' }}>
       <Container maxWidth="lg">
         <Box
           sx={{

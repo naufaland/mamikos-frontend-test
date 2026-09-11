@@ -89,9 +89,18 @@ export function ProductSection({
           </Box>
 
           {/* Right: countdown + Lihat semua + divider + arrows */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-            {showCountdown && (
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Box 
+            sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 1.5, 
+              flexWrap: 'wrap', // Allow wrapping on small screens
+              width: '100%',
+              justifyContent: { xs: 'flex-start', sm: 'flex-end' } 
+            }}
+          >
+            {showCountdown && countdown.mounted && (
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
                 {/* Label dua baris */}
                 <Typography
                   sx={{
@@ -121,31 +130,33 @@ export function ProductSection({
                 </Box>
 
                 {/* HH : MM : SS — masing-masing dalam pill terpisah */}
-                {[
-                  String(countdown.hours).padStart(2, '0'),
-                  String(countdown.minutes).padStart(2, '0'),
-                  String(countdown.seconds).padStart(2, '0'),
-                ].map((unit, i) => (
-                  <Box key={i} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    {i > 0 && (
-                      <Typography sx={{ fontSize: 14, fontWeight: 700, color: 'text.secondary' }}>:</Typography>
-                    )}
-                    <Box
-                      sx={{
-                        bgcolor: 'grey.100',
-                        borderRadius: '8px',
-                        px: 1.5,
-                        py: 0.5,
-                        minWidth: 40,
-                        textAlign: 'center',
-                      }}
-                    >
-                      <Typography sx={{ fontSize: 14, fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>
-                        {unit}
-                      </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  {[
+                    String(countdown.hours).padStart(2, '0'),
+                    String(countdown.minutes).padStart(2, '0'),
+                    String(countdown.seconds).padStart(2, '0'),
+                  ].map((unit, i) => (
+                    <Box key={i} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      {i > 0 && (
+                        <Typography sx={{ fontSize: 14, fontWeight: 700, color: 'text.secondary' }}>:</Typography>
+                      )}
+                      <Box
+                        sx={{
+                          bgcolor: 'grey.100',
+                          borderRadius: '8px',
+                          px: 1.5,
+                          py: 0.5,
+                          minWidth: 40,
+                          textAlign: 'center',
+                        }}
+                      >
+                        <Typography sx={{ fontSize: 14, fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>
+                          {unit}
+                        </Typography>
+                      </Box>
                     </Box>
-                  </Box>
-                ))}
+                  ))}
+                </Box>
               </Box>
             )}
 
@@ -209,14 +220,25 @@ export function ProductSection({
             overflowX: 'auto',
             scrollSnapType: 'x mandatory',
             pb: 1,
+            // Buat scroll container tembus ke ujung layar di mobile
+            mx: { xs: -2, sm: -3, lg: 0 },
+            px: { xs: 2, sm: 3, lg: 0 },
             /* Hide scrollbar tapi tetap bisa scroll */
             '&::-webkit-scrollbar': { display: 'none' },
             msOverflowStyle: 'none',
             scrollbarWidth: 'none',
           }}
         >
-          {data.map((kos) => (
-            <Box key={kos.id} sx={{ scrollSnapAlign: 'start', flexShrink: 0 }}>
+          {data.map((kos, index) => (
+            <Box 
+              key={kos.id} 
+              sx={{ 
+                scrollSnapAlign: 'start', 
+                flexShrink: 0,
+                // Beri margin kanan tambahan di elemen terakhir agar scroll tidak mentok
+                mr: index === data.length - 1 ? { xs: 2, sm: 3, lg: 0 } : 0 
+              }}
+            >
               <ProductCard kos={kos} sectionType={sectionType} />
             </Box>
           ))}

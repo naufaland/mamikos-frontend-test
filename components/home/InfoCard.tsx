@@ -34,6 +34,7 @@ export function InfoCard({ variant, title, description, linkText }: InfoCardProp
             p: "24px",
             display: 'flex',
             alignItems: 'center',
+            boxShadow: '0 2px 12px rgba(0,0,0,0.07)',
           }}
         >
           <Stack spacing={1} sx={{ maxWidth: '65%' }}>
@@ -78,6 +79,7 @@ export function InfoCard({ variant, title, description, linkText }: InfoCardProp
                 alignItems: { xs: 'flex-start', md: 'center' },
                 justifyContent: 'space-between', 
                 gap: 3,
+                boxShadow: '0 2px 12px rgba(0,0,0,0.07)',
               }}
             >
               <Stack spacing={0.5} sx={{ flex: 1 }}>

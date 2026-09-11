@@ -1,1 +1,4 @@
 /* Empty for MUI. Resets are handled by MUI CssBaseline */
+html, body {
+  overflow-x: hidden;
+}

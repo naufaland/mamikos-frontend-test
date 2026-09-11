@@ -26,24 +26,26 @@ export function LocationCard({ name, image }: LocationCardProps) {
         style={{ objectFit: 'cover', transition: 'transform 0.3s ease' }}
         sizes="(max-width: 600px) 50vw, 25vw"
       />
-      {/* Gradient overlay */}
+      {/* Gradient overlay — full card, darker at bottom */}
       <Box
         sx={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 60%)',
+          background: 'rgba(0,0,0,0.25)',
         }}
       />
+      {/* Name — benar-benar di center bawah card */}
       <Typography
-        variant="body2"
         sx={{
-          fontWeight: 700,
+          fontWeight: 600,
           position: 'absolute',
-          bottom: 12,
-          left: 12,
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
           color: 'white',
-          fontSize: 15,
-          textShadow: '0 1px 4px rgba(0,0,0,0.5)',
+          fontSize: 20,
+          whiteSpace: 'nowrap',
+          textShadow: '0 2px 8px rgba(0,0,0,0.6)',
         }}
       >
         {name}

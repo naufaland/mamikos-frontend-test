@@ -32,7 +32,7 @@ export function Navbar() {
     '&::after': {
       content: '""',
       position: 'absolute',
-      bottom: -21,
+      bottom: -14,
       left: 0,
       width: '100%',
       height: '3px',
@@ -79,6 +79,7 @@ export function Navbar() {
         borderBottom: '1px solid',
         borderColor: 'grey.200',
         boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+        overflow: 'hidden',
       }}
     >
       <Container maxWidth="lg" sx={{ height: '100%' }}>

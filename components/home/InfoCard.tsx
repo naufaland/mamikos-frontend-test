@@ -74,8 +74,9 @@ export function InfoCard({ variant, title, description, linkText }: InfoCardProp
                 overflow: 'hidden',
                 p: "24px",
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center', 
+                flexDirection: { xs: 'column', md: 'row' },
+                alignItems: { xs: 'flex-start', md: 'center' },
+                justifyContent: 'space-between', 
                 gap: 3,
               }}
             >
@@ -88,7 +89,7 @@ export function InfoCard({ variant, title, description, linkText }: InfoCardProp
                 </Typography>
               </Stack>
 
-              <Stack direction="row" spacing={3} alignItems="center" sx={{ flexShrink: 0 }}>
+              <Stack direction="row" spacing={3} sx={{ flexShrink: 0, alignItems: 'center' }}>
                 <Image
                   src="/logo/ic_singgahsini_full.svg"
                   alt="Singgahsini"

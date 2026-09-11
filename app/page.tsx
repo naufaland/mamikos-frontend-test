@@ -85,28 +85,26 @@ export default function Home() {
         {/* 8. ProductSection — Promo Ngebut (with countdown) */}
         <ProductSection
           title="Promo Ngebut"
-          highlightTitle="Semua Kota"
           data={promoNgebutKos}
           showCityDropdown
           showCountdown
-          countdownDays={14}
-          countdownTime="11 : 12 : 15"
+          sectionType="ngebut"
         />
 
         {/* 9. ProductSection — Rekomendasi Jakarta */}
         <ProductSection
           title="Rekomendasi kos di"
-          highlightTitle="Jakarta"
           data={rekomendasiKosJakarta}
           showCityDropdown
+          sectionType="rekomendasi"
         />
 
         {/* 10. ProductSection — Kos Lagi Promo */}
         <ProductSection
           title="Kos yang lagi promo di"
-          highlightTitle="Semua Kota"
           data={kosLagiPromo}
           showCityDropdown
+          sectionType="promo"
         />
 
         {/* 11. LocationGrid — Area Terpopuler */}

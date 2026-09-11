@@ -1,5 +1,6 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { useCountdown } from '@/hooks/useCountdown';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -10,33 +11,40 @@ import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import Grid from '@mui/material/Grid';
 import { ProductCard } from '@/components/ui/ProductCard';
 import { Kos } from '@/types';
 import { cityOptions } from '@/data/mock-data';
 
+const CARD_WIDTH = 266;
+const CARD_GAP = 16; // gap antar card (px)
+const SCROLL_AMOUNT = CARD_WIDTH + CARD_GAP; // scroll 1 card per klik
+
 interface ProductSectionProps {
   title: string;
-  highlightTitle?: string;
   data: Kos[];
   showCityDropdown?: boolean;
   showCountdown?: boolean;
-  countdownDays?: number;
-  countdownTime?: string;
+  sectionType?: 'ngebut' | 'promo' | 'rekomendasi';
 }
 
 export function ProductSection({
   title,
-  highlightTitle,
   data,
   showCityDropdown = false,
   showCountdown = false,
-  countdownDays = 14,
-  countdownTime = '11 : 12 : 15',
+  sectionType = 'rekomendasi',
 }: ProductSectionProps) {
   const [selectedCity, setSelectedCity] = useState(cityOptions[0]);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const countdown = useCountdown(7, 'promo_ngebut_countdown');
 
-  const displayedItems = data.slice(0, 4);
+  const scrollLeft = () => {
+    scrollRef.current?.scrollBy({ left: -SCROLL_AMOUNT, behavior: 'smooth' });
+  };
+
+  const scrollRight = () => {
+    scrollRef.current?.scrollBy({ left: SCROLL_AMOUNT, behavior: 'smooth' });
+  };
 
   return (
     <Box sx={{ py: 3, bgcolor: 'white' }}>
@@ -52,88 +60,167 @@ export function ProductSection({
             mb: 2,
           }}
         >
-          {/* Title + optional dropdown */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
-            <Typography variant="h6" sx={{ fontWeight: 700 }}>
+          {/* Title + dropdown langsung di samping */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, flexWrap: 'wrap' }}>
+            <Typography sx={{ fontWeight: 700, fontSize: '20px', lineHeight: 1.3 }}>
               {title}
             </Typography>
-            {highlightTitle && (
-              <>
-                <Typography variant="h6" sx={{ fontWeight: 700 }} color="primary.main">
-                  {highlightTitle}
-                </Typography>
-                {showCityDropdown && (
-                  <Select
-                    value={selectedCity}
-                    onChange={(e) => setSelectedCity(e.target.value)}
-                    size="small"
-                    IconComponent={KeyboardArrowDownIcon}
-                    sx={{
-                      fontSize: 16,
-                      fontWeight: 700,
-                      color: 'primary.main',
-                      '.MuiOutlinedInput-notchedOutline': { border: 'none' },
-                      '.MuiSelect-select': { py: 0.5 },
-                    }}
-                  >
-                    {cityOptions.map((city) => (
-                      <MenuItem key={city} value={city}>
-                        {city}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                )}
-              </>
+            {showCityDropdown && (
+              <Select
+                value={selectedCity}
+                onChange={(e) => setSelectedCity(e.target.value)}
+                size="small"
+                IconComponent={KeyboardArrowDownIcon}
+                sx={{
+                  fontSize: 20,
+                  fontWeight: 700,
+                  color: 'primary.main',
+                  '.MuiOutlinedInput-notchedOutline': { border: 'none' },
+                  '.MuiSelect-select': { py: 0, pl: 0 },
+                }}
+              >
+                {cityOptions.map((city) => (
+                  <MenuItem key={city} value={city}>
+                    {city}
+                  </MenuItem>
+                ))}
+              </Select>
             )}
           </Box>
 
-          {/* Right: countdown + Lihat semua + arrows */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flexWrap: 'wrap' }}>
+          {/* Right: countdown + Lihat semua + divider + arrows */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
             {showCountdown && (
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Typography variant="caption" color="text.secondary">
-                  Akan Berakhir dalam waktu:
-                </Typography>
-                <Box
+                {/* Label dua baris */}
+                <Typography
                   sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 0.5,
-                    bgcolor: 'grey.100',
-                    px: 1.5,
-                    py: 0.5,
-                    borderRadius: 1,
+                    fontSize: 12,
+                    fontWeight: 450,
+                    color: 'text.secondary',
+                    lineHeight: 1.3,
                   }}
                 >
-                  <Typography variant="body2" sx={{ fontWeight: 700 }}>
-                    {countdownDays} Hari
-                  </Typography>
-                  <Typography variant="body2" sx={{ fontWeight: 700 }} color="primary.main">
-                    {countdownTime}
+                  Akan Berakhir<br />dalam waktu:
+                </Typography>
+
+                {/* Pill: X Hari */}
+                <Box
+                  sx={{
+                    bgcolor: 'grey.100',
+                    borderRadius: '8px',
+                    px: 1.5,
+                    py: 0.5,
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Typography sx={{ fontSize: 14, fontWeight: 700, whiteSpace: 'nowrap', fontVariantNumeric: 'tabular-nums' }}>
+                    {countdown.days} Hari
                   </Typography>
                 </Box>
+
+                {/* HH : MM : SS — masing-masing dalam pill terpisah */}
+                {[
+                  String(countdown.hours).padStart(2, '0'),
+                  String(countdown.minutes).padStart(2, '0'),
+                  String(countdown.seconds).padStart(2, '0'),
+                ].map((unit, i) => (
+                  <Box key={i} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    {i > 0 && (
+                      <Typography sx={{ fontSize: 14, fontWeight: 700, color: 'text.secondary' }}>:</Typography>
+                    )}
+                    <Box
+                      sx={{
+                        bgcolor: 'grey.100',
+                        borderRadius: '8px',
+                        px: 1.5,
+                        py: 0.5,
+                        minWidth: 40,
+                        textAlign: 'center',
+                      }}
+                    >
+                      <Typography sx={{ fontSize: 14, fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>
+                        {unit}
+                      </Typography>
+                    </Box>
+                  </Box>
+                ))}
               </Box>
             )}
-            <Button variant="text" sx={{ fontSize: 13, fontWeight: 600, color: 'text.primary' }}>
+
+            {/* Lihat semua — outlined */}
+            <Button
+              variant="outlined"
+              size="small"
+              sx={{
+                fontSize: 13,
+                fontWeight: 600,
+                color: 'text.primary',
+                borderColor: 'grey.300',
+                borderRadius: '8px',
+                px: 2,
+                py: 0.75,
+                textTransform: 'none',
+                '&:hover': { borderColor: 'grey.400', bgcolor: 'grey.50' },
+              }}
+            >
               Lihat semua
             </Button>
-            <IconButton size="small" sx={{ border: '1px solid', borderColor: 'grey.300' }}>
-              <ChevronLeftIcon />
-            </IconButton>
-            <IconButton size="small" sx={{ border: '1px solid', borderColor: 'grey.300' }}>
-              <ChevronRightIcon />
-            </IconButton>
+
+            {/* Divider vertikal */}
+            <Box
+              component="span"
+              sx={{
+                display: 'inline-block',
+                width: '1px',
+                height: 28,
+                bgcolor: 'grey.300',
+              }}
+            />
+
+            {/* Nav arrows */}
+            <Box sx={{ display: 'flex', gap: 0.5 }}>
+              <IconButton
+                size="small"
+                onClick={scrollLeft}
+                sx={{ border: '1px solid', borderColor: 'grey.300', borderRadius: '8px' }}
+              >
+                <ChevronLeftIcon fontSize="small" />
+              </IconButton>
+              <IconButton
+                size="small"
+                onClick={scrollRight}
+                sx={{ border: '1px solid', borderColor: 'grey.300', borderRadius: '8px' }}
+              >
+                <ChevronRightIcon fontSize="small" />
+              </IconButton>
+            </Box>
           </Box>
+
         </Box>
 
-        {/* Grid */}
-        <Grid container spacing={2}>
-          {displayedItems.map((kos) => (
-            <Grid key={kos.id} size={{ xs: 12, sm: 6, md: 3 }}>
-              <ProductCard kos={kos} />
-            </Grid>
+        {/* Horizontal scroll container */}
+        <Box
+          ref={scrollRef}
+          sx={{
+            display: 'flex',
+            gap: `${CARD_GAP}px`,
+            overflowX: 'auto',
+            scrollSnapType: 'x mandatory',
+            pb: 1,
+            /* Hide scrollbar tapi tetap bisa scroll */
+            '&::-webkit-scrollbar': { display: 'none' },
+            msOverflowStyle: 'none',
+            scrollbarWidth: 'none',
+          }}
+        >
+          {data.map((kos) => (
+            <Box key={kos.id} sx={{ scrollSnapAlign: 'start', flexShrink: 0 }}>
+              <ProductCard kos={kos} sectionType={sectionType} />
+            </Box>
           ))}
-        </Grid>
+        </Box>
       </Container>
     </Box>
   );
